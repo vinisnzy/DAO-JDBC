@@ -1,5 +1,10 @@
+package application;
+
+import model.entities.Department;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Department department = new Department(1, "Computers");
+        System.out.println(department);
     }
 }
