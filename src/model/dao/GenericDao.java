@@ -1,5 +1,8 @@
 package model.dao;
 
+import model.entities.Department;
+import model.entities.Seller;
+
 import java.util.List;
 
 public interface GenericDao<T> {
@@ -12,4 +15,6 @@ public interface GenericDao<T> {
     T findById(Integer id);
 
     List<T> findAll();
+
+    List<Seller> findByDepartment(Department department);
 }
