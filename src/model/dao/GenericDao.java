@@ -6,9 +6,9 @@ import model.entities.Seller;
 import java.util.List;
 
 public interface GenericDao<T> {
-    void insert(T department);
+    void insert(T seller);
 
-    void update(T department);
+    void update(T seller);
 
     void deleteById(Integer id);
 
