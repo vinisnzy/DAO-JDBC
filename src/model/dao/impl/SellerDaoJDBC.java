@@ -51,15 +51,8 @@ public class SellerDaoJDBC implements GenericDao<Seller> {
             rs = st.executeQuery();
 
             if (rs.next()) {
-                Department department = new Department(rs.getInt("DepartmentId"), rs.getString("DepName"));
-                Seller seller = new Seller();
-                seller.setId(rs.getInt("Id"));
-                seller.setName(rs.getString("Name"));
-                seller.setEmail(rs.getString("Email"));
-                seller.setBirthDate(rs.getDate("BirthDate"));
-                seller.setBaseSalary(rs.getDouble("BaseSalary"));
-                seller.setDepartment(department);
-                return seller;
+                Department department = instantiateDepartment(rs);
+                return instantiateSeller(rs, department);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -68,6 +61,24 @@ public class SellerDaoJDBC implements GenericDao<Seller> {
             DB.closeResultSet(rs);
         }
         return null;
+    }
+
+    private Department instantiateDepartment(ResultSet rs) throws SQLException {
+        Department department = new Department();
+        department.setId(rs.getInt("DepartmentId"));
+        department.setName(rs.getString("DepName"));
+        return department;
+    }
+
+    private Seller instantiateSeller(ResultSet rs, Department department) throws SQLException {
+        Seller seller = new Seller();
+        seller.setId(rs.getInt("Id"));
+        seller.setName(rs.getString("Name"));
+        seller.setEmail(rs.getString("Email"));
+        seller.setBirthDate(rs.getDate("BirthDate"));
+        seller.setBaseSalary(rs.getDouble("BaseSalary"));
+        seller.setDepartment(department);
+        return seller;
     }
 
     @Override
