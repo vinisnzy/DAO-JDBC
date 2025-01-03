@@ -68,7 +68,7 @@ public class SellerDaoJDBC implements GenericDao<Seller> {
                             "WHERE Id = ?"
             );
 
-            st.setString(1 ,seller.getName());
+            st.setString(1, seller.getName());
             st.setString(2, seller.getEmail());
             st.setDate(3, new java.sql.Date(seller.getBirthDate().getTime()));
             st.setDouble(4, seller.getBaseSalary());
@@ -85,7 +85,16 @@ public class SellerDaoJDBC implements GenericDao<Seller> {
 
     @Override
     public void deleteById(Integer id) {
-
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement("DELETE FROM seller WHERE Id = ?");
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
