@@ -179,7 +179,6 @@ public class SellerDaoJDBC implements GenericDao<Seller> {
         return list;
     }
 
-    @Override
     public List<Seller> findByDepartment(Department department) {
         PreparedStatement st = null;
         ResultSet rs = null;
